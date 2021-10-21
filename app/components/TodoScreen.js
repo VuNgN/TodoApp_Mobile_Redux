@@ -12,6 +12,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import colors from '../assets/colors/colors';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import getMonthString from '../config/getMonthString';
+import AddTodoModal from './AddTodoModal';
 
 const TodoScreen = ({incomplete, completed, addTodo, completeTodo}) => {
   const [date, changeDate] = useState(new Date().getDate());
@@ -19,6 +20,7 @@ const TodoScreen = ({incomplete, completed, addTodo, completeTodo}) => {
   const [year, changeYear] = useState(new Date().getFullYear());
   const [incompleteNum, changeIncompleteNum] = useState(incomplete.length);
   const [completedNum, changeCompletedNum] = useState(completed.length);
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     changeDate(new Date().getDate());
@@ -35,7 +37,10 @@ const TodoScreen = ({incomplete, completed, addTodo, completeTodo}) => {
     <View style={styles.container}>
       <SafeAreaView style={styles.safeAreaView}>
         {/* ADD bottom button */}
-        <TouchableOpacity style={styles.addButton} activeOpacity={0.7}>
+        <TouchableOpacity
+          style={styles.addButton}
+          activeOpacity={0.7}
+          onPress={() => setModalVisible(!modalVisible)}>
           <AntDesign name="plus" color={colors.light} size={30} />
         </TouchableOpacity>
         {/* Todo */}
@@ -98,6 +103,10 @@ const TodoScreen = ({incomplete, completed, addTodo, completeTodo}) => {
             ))}
           </View>
         </ScrollView>
+        <AddTodoModal
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
+        />
       </SafeAreaView>
       <StatusBar />
     </View>
@@ -128,6 +137,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     marginBottom: 40,
     marginRight: 15,
+    zIndex: 10000,
   },
   header: {
     marginTop: 70,
