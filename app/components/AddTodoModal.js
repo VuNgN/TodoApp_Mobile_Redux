@@ -1,10 +1,14 @@
 import React, {useState} from 'react';
 import {
+  Keyboard,
+  KeyboardAvoidingView,
   Modal,
+  Platform,
   Pressable,
   StyleSheet,
   Text,
   TextInput,
+  TouchableWithoutFeedback,
   View,
 } from 'react-native';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
@@ -21,50 +25,62 @@ const AddTodoModal = ({modalVisible, setModalVisible}) => {
       onRequestClose={() => {
         setModalVisible(!modalVisible);
       }}>
-      <View style={styles.centeredView}>
-        <View style={styles.modalView}>
-          <Text style={styles.modalText}>NEW TASK</Text>
-          <View style={styles.inputSwrapper}>
-            <SimpleLineIcons name="note" color={colors.blackText} size={30} />
-            <TextInput
-              style={styles.todoInput}
-              onChangeText={onChangeTodoText}
-              value={todoText}
-              placeholder="To do ..."
-              keyboardType="default"
-            />
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.container}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Text style={styles.modalText}>NEW TASK</Text>
+              <View style={styles.inputSwrapper}>
+                <SimpleLineIcons
+                  name="note"
+                  color={colors.blackText}
+                  size={30}
+                />
+                <TextInput
+                  style={styles.todoInput}
+                  onChangeText={onChangeTodoText}
+                  value={todoText}
+                  placeholder="To do ..."
+                  keyboardType="default"
+                />
+              </View>
+              <View style={styles.inputSwrapper}>
+                <TextInput
+                  style={styles.typeInput}
+                  onChangeText={onChangeTypeText}
+                  value={typeText}
+                  placeholder="Type"
+                  keyboardType="default"
+                />
+                <SimpleLineIcons
+                  name="directions"
+                  color={colors.blackText}
+                  size={30}
+                  style={styles.typeInputIcon}
+                />
+              </View>
+              <View style={styles.buttonSwrapper}>
+                <Pressable
+                  style={[styles.button, styles.buttonClose]}
+                  onPress={() => setModalVisible(!modalVisible)}>
+                  <SimpleLineIcons
+                    name="close"
+                    color={colors.buttonBackgroundColor}
+                    size={30}
+                  />
+                </Pressable>
+                <Pressable
+                  style={[styles.button, styles.buttonAdd]}
+                  onPress={null}>
+                  <Text style={styles.textButton}>Add task</Text>
+                </Pressable>
+              </View>
+            </View>
           </View>
-          <View style={styles.inputSwrapper}>
-            <TextInput
-              style={styles.typeInput}
-              onChangeText={onChangeTypeText}
-              value={typeText}
-              placeholder="Type"
-              keyboardType="default"
-            />
-            <SimpleLineIcons
-              name="directions"
-              color={colors.blackText}
-              size={30}
-              style={styles.typeInputIcon}
-            />
-          </View>
-          <View style={styles.buttonSwrapper}>
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}>
-              <SimpleLineIcons
-                name="close"
-                color={colors.buttonBackgroundColor}
-                size={30}
-              />
-            </Pressable>
-            <Pressable style={[styles.button, styles.buttonAdd]} onPress={null}>
-              <Text style={styles.textButton}>Add task</Text>
-            </Pressable>
-          </View>
-        </View>
-      </View>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
     </Modal>
   );
 };
@@ -72,6 +88,9 @@ const AddTodoModal = ({modalVisible, setModalVisible}) => {
 export default AddTodoModal;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   centeredView: {
     flex: 1,
     justifyContent: 'center',
@@ -110,7 +129,7 @@ const styles = StyleSheet.create({
   todoInput: {
     fontSize: 18,
     fontFamily: 'Inter-Medium',
-    color: colors.grayTextLight,
+    color: colors.titleText,
     borderBottomColor: colors.borderLight,
     borderBottomWidth: 1,
     flex: 1,
@@ -121,7 +140,7 @@ const styles = StyleSheet.create({
   typeInput: {
     fontSize: 18,
     fontFamily: 'Inter-Medium',
-    color: colors.grayTextLight,
+    color: colors.titleText,
     borderBottomColor: colors.borderLight,
     borderBottomWidth: 1,
     flex: 1,
