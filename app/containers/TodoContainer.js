@@ -4,8 +4,8 @@ import {addTodo, completeTodo, removeTodo} from '../redux/actions/actions';
 
 const mapStateToProps = state => {
   return {
-    incomplete: state.todos.filter(data => !data.isCompleted),
-    completed: state.todos.filter(data => data.isCompleted),
+    incomplete: state.todos.todos.filter(data => !data.isCompleted),
+    completed: state.todos.todos.filter(data => data.isCompleted),
   };
 };
 

@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
     zIndex: 10000,
   },
   header: {
-    marginTop: 70,
+    marginTop: 50,
     marginHorizontal: 20,
     paddingBottom: 16,
     borderBottomColor: colors.borderLight,
