@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {
+  Pressable,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -14,7 +15,13 @@ import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import getMonthString from '../config/getMonthString';
 import AddTodoModal from './AddTodoModal';
 
-const TodoScreen = ({incomplete, completed, addTodo, completeTodo}) => {
+const TodoScreen = ({
+  incomplete,
+  completed,
+  addTodo,
+  completeTodo,
+  removeTodo,
+}) => {
   const [date, changeDate] = useState(new Date().getDate());
   const [month, changeMonth] = useState(getMonthString(new Date().getMonth()));
   const [year, changeYear] = useState(new Date().getFullYear());
@@ -32,6 +39,10 @@ const TodoScreen = ({incomplete, completed, addTodo, completeTodo}) => {
     changeIncompleteNum(incomplete.length);
     changeCompletedNum(completed.length);
   }, [incomplete.length, completed.length]);
+
+  const onPressDoneBtn = id => {
+    removeTodo(id);
+  };
 
   return (
     <View style={styles.container}>
@@ -75,6 +86,11 @@ const TodoScreen = ({incomplete, completed, addTodo, completeTodo}) => {
                   <Text style={styles.incompleteContent}>{todo.content}</Text>
                   <Text style={styles.incompleteType}>{todo.type}</Text>
                 </View>
+                <Pressable
+                  onPress={() => onPressDoneBtn(todo.id)}
+                  style={styles.doneButton}>
+                  <Text style={styles.doneButtonText}>done</Text>
+                </Pressable>
               </View>
             ))}
           </View>
@@ -99,6 +115,24 @@ const TodoScreen = ({incomplete, completed, addTodo, completeTodo}) => {
                 <View style={styles.completedContentWrapper}>
                   <Text style={styles.completedContent}>{todo.content}</Text>
                 </View>
+                <Pressable
+                  onPress={() => onPressDoneBtn(todo.id)}
+                  style={[
+                    styles.doneButton,
+                    {
+                      borderColor: colors.buttonBorderColor,
+                    },
+                  ]}>
+                  <Text
+                    style={[
+                      styles.doneButtonText,
+                      {
+                        color: colors.buttonBackgroundColor,
+                      },
+                    ]}>
+                    done
+                  </Text>
+                </Pressable>
               </View>
             ))}
           </View>
@@ -106,6 +140,7 @@ const TodoScreen = ({incomplete, completed, addTodo, completeTodo}) => {
         <AddTodoModal
           modalVisible={modalVisible}
           setModalVisible={setModalVisible}
+          addTodo={addTodo}
         />
       </SafeAreaView>
       <StatusBar />
@@ -195,6 +230,22 @@ const styles = StyleSheet.create({
     marginLeft: 16,
   },
   completedContent: {
+    fontFamily: 'Inter-Medium',
+    fontSize: 18,
+    color: colors.grayTextLight,
+  },
+  doneButton: {
+    alignSelf: 'flex-start',
+    marginLeft: 'auto',
+    borderWidth: 1,
+    borderColor: colors.borderLight,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 10,
+    height: 46,
+  },
+  doneButtonText: {
     fontFamily: 'Inter-Medium',
     fontSize: 18,
     color: colors.grayTextLight,

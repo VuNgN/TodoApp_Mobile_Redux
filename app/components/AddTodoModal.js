@@ -14,7 +14,7 @@ import {
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import colors from '../assets/colors/colors';
 
-const AddTodoModal = ({modalVisible, setModalVisible}) => {
+const AddTodoModal = ({modalVisible, setModalVisible, addTodo}) => {
   const [todoText, onChangeTodoText] = useState('');
   const [typeText, onChangeTypeText] = useState('');
   return (
@@ -73,7 +73,12 @@ const AddTodoModal = ({modalVisible, setModalVisible}) => {
                 </Pressable>
                 <Pressable
                   style={[styles.button, styles.buttonAdd]}
-                  onPress={null}>
+                  onPress={() => {
+                    addTodo(todoText, typeText);
+                    onChangeTodoText('');
+                    onChangeTypeText('');
+                    setModalVisible(!modalVisible);
+                  }}>
                   <Text style={styles.textButton}>Add task</Text>
                 </Pressable>
               </View>

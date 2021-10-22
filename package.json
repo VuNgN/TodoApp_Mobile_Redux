@@ -11,8 +11,10 @@
   },
   "dependencies": {
     "react": "17.0.2",
+    "react-id-generator": "^3.0.2",
     "react-native": "0.66.1",
     "react-native-bouncy-checkbox": "^2.1.7",
+    "react-native-uuid": "^2.0.1",
     "react-native-vector-icons": "^8.1.0",
     "react-redux": "^7.2.5",
     "redux": "^4.1.1"

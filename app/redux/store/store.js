@@ -1,5 +1,6 @@
 import {createStore, combineReducers, applyMiddleware, compose} from 'redux';
 import todoReducer from '../reducer/reducer';
+import middleware from '../middlewares/middleware';
 
 const reducers = combineReducers({
   todos: todoReducer,
@@ -12,7 +13,7 @@ const composeEnhancers =
       })
     : compose;
 
-const enhancer = composeEnhancers();
+const enhancer = composeEnhancers(applyMiddleware(middleware));
 
 // other store enhancers if any
 
