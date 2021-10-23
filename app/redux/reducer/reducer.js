@@ -1,12 +1,17 @@
 import todoInit from '../init/todoInit';
-import {ADD_TODO, COMPLETE_TODO, REMOVE_TODO} from '../actions/actions';
+import {
+  ADD_TODO,
+  COMPLETE_TODO,
+  REMOVE_TODO,
+  UPDATE_TODO,
+} from '../actions/actions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import uuid from 'react-native-uuid';
 
 const storeData = async value => {
   try {
     const jsonValue = JSON.stringify(value);
-    await AsyncStorage.setItem('todoDatas', jsonValue);
+    await AsyncStorage.setItem('todosData', jsonValue);
   } catch (e) {
     console.log(e);
   }
@@ -48,6 +53,12 @@ export default (state = todoInit, action) => {
         todos: state.todos.filter(todo => todo.id !== action.id),
       };
       storeData(newState);
+      return newState;
+    case UPDATE_TODO:
+      newState = {
+        ...state,
+        todos: action.todos.todos,
+      };
       return newState;
     default:
       return state;

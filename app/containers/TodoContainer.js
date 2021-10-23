@@ -1,6 +1,11 @@
 import {connect} from 'react-redux';
 import TodoScreen from '../components/TodoScreen';
-import {addTodo, completeTodo, removeTodo} from '../redux/actions/actions';
+import {
+  addTodo,
+  completeTodo,
+  removeTodo,
+  updateTodo,
+} from '../redux/actions/actions';
 
 const mapStateToProps = state => {
   return {
@@ -13,6 +18,7 @@ const mapActionToProps = {
   addTodo,
   completeTodo,
   removeTodo,
+  updateTodo,
 };
 
 export default connect(mapStateToProps, mapActionToProps)(TodoScreen);

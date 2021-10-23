@@ -14,6 +14,7 @@ import colors from '../assets/colors/colors';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import getMonthString from '../config/getMonthString';
 import AddTodoModal from './AddTodoModal';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const TodoScreen = ({
   incomplete,
@@ -21,6 +22,7 @@ const TodoScreen = ({
   addTodo,
   completeTodo,
   removeTodo,
+  updateTodo,
 }) => {
   const [date, changeDate] = useState(new Date().getDate());
   const [month, changeMonth] = useState(getMonthString(new Date().getMonth()));
@@ -31,6 +33,17 @@ const TodoScreen = ({
   const isIncomplete = incomplete.length > 0;
   const isCompleted = completed.length > 0;
   const isIncompleteAndCompleted = isIncomplete || isCompleted;
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const todosData = await AsyncStorage.getItem('todosData');
+        updateTodo(JSON.parse(todosData));
+      } catch (e) {
+        console.log(e);
+      }
+    })();
+  }, []);
 
   useEffect(() => {
     changeDate(new Date().getDate());
@@ -67,7 +80,10 @@ const TodoScreen = ({
           </Text>
         </View>
         {isIncompleteAndCompleted ? (
-          <ScrollView style={styles.scrollView}>
+          <ScrollView
+            style={styles.scrollView}
+            showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}>
             {isIncomplete && (
               <View style={styles.todoWrapper}>
                 <Text style={styles.H2Title}>Incomplete</Text>
