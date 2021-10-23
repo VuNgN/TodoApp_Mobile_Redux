@@ -14,7 +14,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import colors from '../assets/colors/colors';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import getMonthString from '../config/getMonthString';
-import AddTodoModal from './AddTodoModal';
+import AddTodoModalDarkMode from './AddTodoModalDarkMode';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {MyContext} from '../context/context';
 
@@ -85,8 +85,8 @@ const TodoScreen = ({
           </View>
           <Pressable
             style={styles.darkmode}
-            onPress={() => changeIsDarkMode(true)}>
-            <Ionicons name="moon" size={30} color={colors.dark} />
+            onPress={() => changeIsDarkMode(false)}>
+            <Ionicons name="sunny" size={30} color={colors.light} />
           </Pressable>
         </View>
         {isIncompleteAndCompleted ? (
@@ -104,11 +104,11 @@ const TodoScreen = ({
                     onPress={() => completeTodo(todo.id)}>
                     <BouncyCheckbox
                       size={24}
-                      fillColor={colors.light}
-                      unfillColor={colors.light}
+                      fillColor={colors.dark}
+                      unfillColor={colors.dark}
                       disableText
                       iconStyle={{
-                        borderColor: colors.whiteText,
+                        borderColor: colors.blackText,
                         borderRadius: 6,
                         borderWidth: 2,
                       }}
@@ -143,11 +143,11 @@ const TodoScreen = ({
                     onPress={() => completeTodo(todo.id)}>
                     <BouncyCheckbox
                       size={24}
-                      fillColor={colors.whiteText}
-                      unfillColor={colors.light}
+                      fillColor={colors.dark}
+                      unfillColor={colors.dark}
                       disableText
                       iconStyle={{
-                        borderColor: colors.whiteText,
+                        borderColor: colors.blackText,
                         borderRadius: 6,
                         borderWidth: 2,
                       }}
@@ -191,7 +191,7 @@ const TodoScreen = ({
             </Text>
           </View>
         )}
-        <AddTodoModal
+        <AddTodoModalDarkMode
           modalVisible={modalVisible}
           setModalVisible={setModalVisible}
           addTodo={addTodo}
@@ -199,8 +199,8 @@ const TodoScreen = ({
       </SafeAreaView>
       <StatusBar
         animated={true}
-        backgroundColor={colors.light}
-        barStyle={'dark-content'}
+        backgroundColor={colors.dark}
+        barStyle={'light-content'}
         showHideTransition={'fade'}
         hidden={false}
       />
@@ -216,7 +216,7 @@ const styles = StyleSheet.create({
   },
   safeAreaView: {
     flex: 1,
-    backgroundColor: colors.light,
+    backgroundColor: colors.dark,
   },
   addButton: {
     backgroundColor: colors.buttonBackgroundColor,
@@ -238,7 +238,7 @@ const styles = StyleSheet.create({
     marginTop: 50,
     marginHorizontal: 20,
     paddingBottom: 16,
-    borderBottomColor: colors.borderLight,
+    borderBottomColor: colors.blackText,
     borderBottomWidth: 2,
     flexDirection: 'row',
     alignItems: 'center',
@@ -246,7 +246,7 @@ const styles = StyleSheet.create({
   h1date: {
     fontSize: 32,
     fontFamily: 'Inter-Bold',
-    color: colors.titleText,
+    color: colors.whiteText,
   },
   todoInfo: {
     marginTop: 8,
@@ -257,8 +257,8 @@ const styles = StyleSheet.create({
   darkmode: {
     marginLeft: 'auto',
     borderRadius: 20,
-    borderColor: colors.dark,
-    borderWidth: 1,
+    borderColor: colors.light,
+    borderWidth: 2,
     padding: 10,
   },
   scrollView: {
@@ -270,7 +270,7 @@ const styles = StyleSheet.create({
   H2Title: {
     fontFamily: 'Inter-Bold',
     fontSize: 18,
-    color: colors.blackText,
+    color: colors.whiteText,
   },
   incomplete: {
     flexDirection: 'row',
@@ -284,13 +284,13 @@ const styles = StyleSheet.create({
   incompleteContent: {
     fontFamily: 'Inter-Medium',
     fontSize: 18,
-    color: colors.blackText,
+    color: colors.whiteText,
     overflow: 'hidden',
   },
   incompleteType: {
     fontFamily: 'Inter-SemiBold',
     fontSize: 14,
-    color: colors.grayTextLight,
+    color: colors.grayTextDark,
   },
   completed: {
     flexDirection: 'row',
@@ -304,7 +304,7 @@ const styles = StyleSheet.create({
   completedContent: {
     fontFamily: 'Inter-Medium',
     fontSize: 18,
-    color: colors.grayTextLight,
+    color: colors.grayTextDark,
   },
   doneButton: {
     alignSelf: 'flex-start',
@@ -320,7 +320,7 @@ const styles = StyleSheet.create({
   doneButtonText: {
     fontFamily: 'Inter-Medium',
     fontSize: 18,
-    color: colors.grayTextLight,
+    color: colors.grayTextDark,
   },
   emptyTodoSwrapper: {
     flex: 1,
@@ -330,12 +330,12 @@ const styles = StyleSheet.create({
   emptyTodoText: {
     fontSize: 24,
     fontFamily: 'Inter-Bold',
-    color: colors.titleText,
+    color: colors.whiteText,
   },
   emptyTodoTextDesc: {
     fontSize: 18,
     fontFamily: 'Inter-Medium',
-    color: colors.grayTextLight,
+    color: colors.grayTextDark,
     marginTop: 5,
   },
 });

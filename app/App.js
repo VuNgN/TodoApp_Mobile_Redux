@@ -1,14 +1,12 @@
 import React from 'react';
-import {View, Text} from 'react-native';
-import TodoContainer from './containers/TodoContainer';
-import store from './redux/store/store';
-import {Provider} from 'react-redux';
+import MyProviderContext from './context/context';
+import ProviderStore from './ProviderStore';
 
 const App = () => {
   return (
-    <Provider store={store}>
-      <TodoContainer />
-    </Provider>
+    <MyProviderContext>
+      <ProviderStore />
+    </MyProviderContext>
   );
 };
 

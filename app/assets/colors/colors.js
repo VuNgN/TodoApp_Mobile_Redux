@@ -11,4 +11,5 @@ export default {
   buttonBorderColor: '#515CC6',
   titleText: '#0E0E11',
   borderLight: '#D0D0D0',
+  white: '#FFFFFF',
 };
